@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Quartz;
+using System;
 
 namespace Hangfire.Demo
 {
@@ -6,7 +7,9 @@ namespace Hangfire.Demo
     {
         public void Print()
         {
-            Console.WriteLine($"Hangfire recurring job!");
+            CronExpression cronExpression = new CronExpression("0/10 * * * * ? *");
+            DateTimeOffset nextScheduledTime = (DateTimeOffset)cronExpression.GetNextValidTimeAfter(DateTimeOffset.UtcNow);
+            Console.WriteLine("Hello Hangfire recurring job! This mesage was run at: {0}", nextScheduledTime.DateTime);
         }
     }
 }

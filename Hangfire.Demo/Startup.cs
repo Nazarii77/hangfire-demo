@@ -6,6 +6,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using Quartz;
 
 namespace Hangfire.Demo
 {
@@ -35,7 +36,7 @@ namespace Hangfire.Demo
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.
         public void Configure(
-            IApplicationBuilder app, 
+            IApplicationBuilder app,
             IWebHostEnvironment env,
             IBackgroundJobClient backgroundJobClient,
             IRecurringJobManager recurringJobManager,
@@ -57,12 +58,13 @@ namespace Hangfire.Demo
             });
 
             app.UseHangfireDashboard();
-            backgroundJobClient.Enqueue(() => Console.WriteLine("Hello Hangfire job!" +   DateTime.Now));
+            backgroundJobClient.Enqueue(() => Console.WriteLine("Hello Hangfire job!"));
             recurringJobManager.AddOrUpdate(
-                "Run every minute",
-                () => serviceProvider.GetService<IPrintJob>().Print(),
-                "* * * * *"
+                "Job ID",
+                 () => serviceProvider.GetService<IPrintJob>().Print(),
+                 "* * * * * "
                 );
         }
     }
 }
+
