@@ -26,7 +26,7 @@ namespace Hangfire.Demo
                 config.SetDataCompatibilityLevel(CompatibilityLevel.Version_170)
                 .UseSimpleAssemblyNameTypeSerializer()
                 .UseDefaultTypeSerializer()
-                .UseSqlServerStorage(Configuration["Hangfire"]));
+                .UseMemoryStorage()); //UseSqlServerStorage(Configuration["Hangfire"]));
 
             services.AddHangfireServer();
 
@@ -57,7 +57,7 @@ namespace Hangfire.Demo
             });
 
             app.UseHangfireDashboard();
-            backgroundJobClient.Enqueue(() => Console.WriteLine("Hello Hanfire job!"));
+            backgroundJobClient.Enqueue(() => Console.WriteLine("Hello Hangfire job!" +   DateTime.Now));
             recurringJobManager.AddOrUpdate(
                 "Run every minute",
                 () => serviceProvider.GetService<IPrintJob>().Print(),

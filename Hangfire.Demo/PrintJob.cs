@@ -6,7 +6,7 @@ namespace Hangfire.Demo
     {
         public void Print()
         {
-            Console.WriteLine($"Hanfire recurring job!");
+            Console.WriteLine($"Hangfire recurring job!");
         }
     }
 }
