@@ -52,7 +52,7 @@ namespace Hangfire.Demo
             {
                 endpoints.MapGet("/", async context =>
                 {
-                    await context.Response.WriteAsync("Hello World!");
+                    await context.Response.WriteAsync("A simple example how to run recurring job using HangFire");
                 });
             });
 
@@ -61,7 +61,7 @@ namespace Hangfire.Demo
             recurringJobManager.AddOrUpdate(
                 "Job ID",
                  () => serviceProvider.GetService<IPrintJob>().Print(),
-                 "* * * * * "
+                 "* * * * * " // Cron.Minutely
                 );
         }
     }
