@@ -7,9 +7,9 @@ namespace Hangfire.Demo
     {
         public void Print()
         {
-            CronExpression cronExpression = new CronExpression("0/10 * * * * ? *");
-            DateTimeOffset nextScheduledTime = (DateTimeOffset)cronExpression.GetNextValidTimeAfter(DateTimeOffset.UtcNow);
-            Console.WriteLine("Hello Hangfire recurring job! This mesage was run at: {0}", nextScheduledTime.DateTime);
+            CronExpression cronExpression = new CronExpression("0 * * ? * * *");
+            DateTimeOffset nextScheduledTime = (DateTimeOffset)cronExpression.GetNextValidTimeAfter(DateTimeOffset.Now);
+            Console.WriteLine("Hello Hangfire recurring job! Next message will run at: {0}", nextScheduledTime.DateTime);
         }
     }
 }
